@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import MenuReviewScreen from './src/screens/MenuReviewScreen'; // Import MenuReviewScreen
 import { Platform } from 'react-native';
+import Markdown from 'react-native-markdown-display';
+
 
 
 const Stack = createStackNavigator();
@@ -131,13 +133,16 @@ function HomeScreen({ navigation }) {
 
       {summary && (
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Gemini Summary:</Text>
-          <Text style={styles.summaryText}>{summary}</Text>
+          <Text style={styles.summaryTitle}>🍽️ Gemini Summary:</Text>
+          <Markdown style={styles.markdownText}>
+            {summary}
+          </Markdown>
         </View>
       )}
     </View>
   );
 }
+
 
 export default function App() {
   return (
@@ -180,14 +185,22 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 20,
   },
+  summaryContainer: {
+    width: '100%',
+    backgroundColor: '#e6f7ff',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+  },
   summaryTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  summaryText: {
+  markdownText: {
     fontSize: 16,
     lineHeight: 22,
+    color: "#333", // Dark gray for readability
   },
   loadingText: {
     marginVertical: 20,
@@ -195,3 +208,4 @@ const styles = StyleSheet.create({
     color: '#666',
   }
 });
+
