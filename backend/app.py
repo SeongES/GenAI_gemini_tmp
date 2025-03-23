@@ -62,6 +62,10 @@ def upload_file():
         print("Error saving file:", str(e))  # Debug: log any errors
         return jsonify({"error": str(e)}), 500
     
+<<<<<<< HEAD
+#-----------------------------------------------------------
+=======
+>>>>>>> 46d6954be68048309c934af98f2aa5f45fcec523
 # API to summarize the menu using Gemini AI
 @app.route('/summarize', methods=['POST', 'OPTIONS'])
 def summarize_menu():
@@ -87,7 +91,61 @@ def summarize_menu():
 
     return jsonify({"summary": summary})
 
+<<<<<<< HEAD
+#-----------------------------------------------------------
+# API to summarize the menu using Gemini AI
+@app.route('/simple_menu', methods=['POST', 'OPTIONS'])
+def simple_menu():
+    if request.method == 'OPTIONS':
+        # Handle preflight request
+        response = jsonify({'status': 'success'})
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
+        
+    data = request.json
+    image_path = data.get("image_path")
 
+    if not image_path:
+        return jsonify({"error": "No image path provided"}), 400
+
+    # Create a MenuReviewer instance
+    reviewer = MenuReviewer(api_key=API_KEY, task="simple_menu", language="English",
+                           dietary_restrictions=None, allergies=None, culture=None)
+    
+    # Generate menu summary
+    simple_menu = reviewer.generate_review(image_path)
+
+    return jsonify({"simple_menu": simple_menu})
+
+#-----------------------------------------------------------
+# API to summarize the menu using Gemini AI
+@app.route('/recommendation', methods=['POST', 'OPTIONS'])
+def recommendation():
+    if request.method == 'OPTIONS':
+        # Handle preflight request
+        response = jsonify({'status': 'success'})
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
+        
+    data = request.json
+    image_path = data.get("image_path")
+
+    if not image_path:
+        return jsonify({"error": "No image path provided"}), 400
+
+    # Create a MenuReviewer instance
+    reviewer = MenuReviewer(api_key=API_KEY, task="recommendation", language="English",
+                           dietary_restrictions=None, allergies=None, culture=None)
+    
+    # Generate menu summary
+    recommendation = reviewer.generate_review(image_path)
+
+    return jsonify({"recommendation": recommendation})
+=======
+
+>>>>>>> 46d6954be68048309c934af98f2aa5f45fcec523
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
