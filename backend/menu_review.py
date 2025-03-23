@@ -1,8 +1,5 @@
 import google.generativeai as genai
 import PIL.Image  
-from flask import Flask, request, jsonify
-
-app = Flask(__name__)
 
 class MenuReviewer:
     def __init__(self, api_key, task, language, dietary_restrictions, allergies, culture):
@@ -76,14 +73,3 @@ def return_prompt(task, language, dietary, allergies, culture):
         """
 
     return prompt
-
-@app.route('/generate_review', methods=['POST'])
-def generate_review_endpoint():
-    data = request.get_json()
-    image_path = data['image_path']
-    reviewer = MenuReviewer(api_key='your_api_key', task='summarize', language='English', dietary_restrictions=None, allergies=None, culture=None)
-    review = reviewer.generate_review(image_path)
-    return jsonify({'summary': review})
-
-if __name__ == '__main__':
-    app.run(debug=True)

@@ -3,8 +3,7 @@ from flask_cors import CORS
 import os
 from menu_review import MenuReviewer
 
-# Initialize Flask
-# Initialize Flask
+
 app = Flask(__name__)
 
 # Configure CORS to allow requests from any origin
@@ -62,6 +61,7 @@ def upload_file():
     except Exception as e:
         print("Error saving file:", str(e))  # Debug: log any errors
         return jsonify({"error": str(e)}), 500
+    
 # API to summarize the menu using Gemini AI
 @app.route('/summarize', methods=['POST', 'OPTIONS'])
 def summarize_menu():
@@ -86,6 +86,8 @@ def summarize_menu():
     summary = reviewer.generate_review(image_path)
 
     return jsonify({"summary": summary})
+
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
